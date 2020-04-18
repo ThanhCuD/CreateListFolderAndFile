@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Configuration;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CreateFolder
@@ -19,9 +11,6 @@ namespace CreateFolder
         public Form1()
         {
             InitializeComponent();
-            txtAddressSave.ReadOnly = true;
-            txtAddRoot.ReadOnly = true;
-            txtAdsChild.ReadOnly = true;
             txtAddressSave.Text = ConfigurationManager.AppSettings["AddressSave"];
             txtAddRoot.Text = ConfigurationManager.AppSettings["AddRoot"];
             txtAdsChild.Text = ConfigurationManager.AppSettings["AdsChild"];
@@ -56,9 +45,18 @@ namespace CreateFolder
             if (arrChild != null)
             {
                 var targetPath = addressSave;
+                var isRoot = true;
                 foreach (var item in arrChild)
                 {
-                    targetPath += "\\" + item;
+                    if(isRoot && item == root)
+                    {
+                        isRoot = false;
+                        targetPath += "\\" + txtRootName.Text;
+                    }
+                    else
+                    {
+                        targetPath += "\\" + item;
+                    }
                     if (!System.IO.Directory.Exists(targetPath))
                         System.IO.Directory.CreateDirectory(targetPath);
                 }
@@ -157,8 +155,15 @@ namespace CreateFolder
             config.AppSettings.Settings.Add("AddRoot", txtAddRoot.Text);
             config.AppSettings.Settings.Remove("AdsChild");
             config.AppSettings.Settings.Add("AdsChild", txtAdsChild.Text);
+            config.AppSettings.Settings.Remove("RootName");
+            config.AppSettings.Settings.Add("RootName", txtRootName.Text);
             config.Save(ConfigurationSaveMode.Modified);
             MessageBox.Show("Done", "Message");
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

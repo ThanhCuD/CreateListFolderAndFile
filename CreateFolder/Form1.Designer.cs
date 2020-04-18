@@ -42,6 +42,8 @@
             this.bt_ChooseChild = new System.Windows.Forms.Button();
             this.bt_Choose_Files = new System.Windows.Forms.Button();
             this.btConfig = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtRootName = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // txtAddressSave
@@ -94,7 +96,7 @@
             // 
             // btMake
             // 
-            this.btMake.Location = new System.Drawing.Point(192, 222);
+            this.btMake.Location = new System.Drawing.Point(192, 280);
             this.btMake.Name = "btMake";
             this.btMake.Size = new System.Drawing.Size(477, 23);
             this.btMake.TabIndex = 6;
@@ -138,7 +140,7 @@
             // 
             // bt_Choose_Files
             // 
-            this.bt_Choose_Files.Location = new System.Drawing.Point(688, 222);
+            this.bt_Choose_Files.Location = new System.Drawing.Point(688, 230);
             this.bt_Choose_Files.Name = "bt_Choose_Files";
             this.bt_Choose_Files.Size = new System.Drawing.Size(128, 23);
             this.bt_Choose_Files.TabIndex = 10;
@@ -156,11 +158,30 @@
             this.btConfig.UseVisualStyleBackColor = true;
             this.btConfig.Click += new System.EventHandler(this.btConfig_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(9, 230);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(79, 17);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "Root Name";
+            // 
+            // txtRootName
+            // 
+            this.txtRootName.Location = new System.Drawing.Point(192, 228);
+            this.txtRootName.Name = "txtRootName";
+            this.txtRootName.Size = new System.Drawing.Size(477, 22);
+            this.txtRootName.TabIndex = 12;
+            this.txtRootName.Text = "Website";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(843, 272);
+            this.ClientSize = new System.Drawing.Size(843, 323);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.txtRootName);
             this.Controls.Add(this.btConfig);
             this.Controls.Add(this.bt_Choose_Files);
             this.Controls.Add(this.bt_ChooseChild);
@@ -175,6 +196,7 @@
             this.Controls.Add(this.txtAddressSave);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -196,6 +218,8 @@
         private System.Windows.Forms.Button bt_ChooseChild;
         private System.Windows.Forms.Button bt_Choose_Files;
         private System.Windows.Forms.Button btConfig;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtRootName;
     }
 }
 
