@@ -6,7 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CreateFolder
@@ -15,7 +14,6 @@ namespace CreateFolder
     {
         string rootWebsite = "Website";
         string rootData = "Data";
-        string rootConfig = "Config";
 
         public string GetFiles(string beginCommit, string endCommit, string workDirectory)
         {
