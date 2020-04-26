@@ -19,7 +19,6 @@ namespace CreateFolder
         {
             var command = string.Format(" show --name-only --oneline {0}^..{1}", beginCommit, endCommit);
             var gitFilePath = ConfigurationManager.AppSettings["GitExeFolder"] ?? "C:\\Program Files\\Git\\bin\\git.exe";
-
             try
             {
                 using (Process gitProcess = new Process())
@@ -82,32 +81,59 @@ namespace CreateFolder
                         }
                         else
                         {
-                            throw new Exception("Time out");
+                            WriteLog("At Helper>GetFiles TimeOut");
+                            return "";
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+                int linenum = 0;
+                try
+                {
+                    linenum = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
+                }
+                catch
+                {
+                    //Stack trace is not available!
+                }
+                WriteLog("At Line :" + linenum + ": " + ex);
+                return "";
             }
         }
 
         public IEnumerable<string> GetListFile(string str)
         {
             var arr = new List<string>();
-            using (var reader = new StringReader(str))
+            try
             {
-                string line;
-                while ((line = reader.ReadLine()) != null)
+                using (var reader = new StringReader(str))
                 {
-                    if (line.Contains("/"))
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
                     {
-                        arr.Add(line);
+                        if (line.Contains("/"))
+                        {
+                            arr.Add(line);
+                        }
                     }
                 }
+                arr = arr.Distinct().ToList();
             }
-            arr = arr.Distinct().ToList();
+            catch (Exception ex)
+            {
+                int linenum = 0;
+                try
+                {
+                    linenum = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
+                }
+                catch
+                {
+                    //Stack trace is not available!
+                }
+                WriteLog("At Line :" + linenum + ": " + ex);
+            }
             return arr;
         }
 
@@ -162,7 +188,16 @@ namespace CreateFolder
             }
             catch (Exception ex)
             {
-                throw ex;
+                int linenum = 0;
+                try
+                {
+                    linenum = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
+                }
+                catch
+                {
+                    //Stack trace is not available!
+                }
+                WriteLog("At Line :" + linenum + ": " + ex);
             }
 
             return "All Configs updated";
@@ -170,18 +205,35 @@ namespace CreateFolder
 
         public IEnumerable<string> UpdateBeginAndEndCommit(string workDirectory, int take)
         {
-            var str = LoadBeginEndCommit(workDirectory, take);
             var arr = new List<string>();
-            using (var reader = new StringReader(str))
+            try
             {
-                string line;
-                while ((line = reader.ReadLine()) != null)
+                var str = LoadBeginEndCommit(workDirectory, take);
+                using (var reader = new StringReader(str))
                 {
-                    var hash = line.Substring(0, 7);
-                    arr.Add(hash);
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        var hash = line.Substring(0, 7);
+                        arr.Add(hash);
+                    }
                 }
+                return arr;
             }
-            return arr;
+            catch (Exception ex)
+            {
+                int linenum = 0;
+                try
+                {
+                    linenum = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
+                }
+                catch
+                {
+                    //Stack trace is not available!
+                }
+                WriteLog("At Line :" + linenum + ": " + ex);
+                return arr;
+            }
         }
 
         public void GenerateFilesForDeployment(CheckedListBox.CheckedItemCollection checkedItems, string projectPath, string destinationPath, ref CheckedListBox checkPagake)
@@ -195,7 +247,7 @@ namespace CreateFolder
                 {
                     var source = Path.Combine(projectPath, checkItem.ToString().Replace("/", "\\"));
                     var arr = checkItem.ToString().Split('/');
-                    if(arr[1] == "App_Data")
+                    if (arr[1] == "App_Data")
                     {
                         arr[0] = rootData;
                     }
@@ -221,15 +273,47 @@ namespace CreateFolder
                 {
                     checkPagake.Items.Add(item, false);
                 }
-                
+
             }
             catch (Exception ex)
             {
-                throw ex;
+                int linenum = 0;
+                try
+                {
+                    linenum = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
+                }
+                catch
+                {
+                    //Stack trace is not available!
+                }
+                WriteLog("At Line :" + linenum + ": " + ex);
             }
         }
 
+        public void WriteLog(string strLog)
+        {
+            StreamWriter log;
+            FileStream fileStream = null;
+            DirectoryInfo logDirInfo = null;
+            FileInfo logFileInfo;
 
+            string logFilePath = "C:\\Logs\\";
+            logFilePath = logFilePath + "Log-" + System.DateTime.Today.ToString("MM-dd-yyyy") + "." + "txt";
+            logFileInfo = new FileInfo(logFilePath);
+            logDirInfo = new DirectoryInfo(logFileInfo.DirectoryName);
+            if (!logDirInfo.Exists) logDirInfo.Create();
+            if (!logFileInfo.Exists)
+            {
+                fileStream = logFileInfo.Create();
+            }
+            else
+            {
+                fileStream = new FileStream(logFilePath, FileMode.Append);
+            }
+            log = new StreamWriter(fileStream);
+            log.WriteLine(strLog);
+            log.Close();
+        }
         #region Private Method
         private string LoadBeginEndCommit(string workDirectory, int take)
         {

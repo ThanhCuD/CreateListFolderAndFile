@@ -23,7 +23,7 @@ namespace CreateFolder
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+           
         }
         private void InitConfig()
         {
@@ -47,7 +47,16 @@ namespace CreateFolder
             }
             catch (Exception ex)
             {
-                throw ex;
+                int linenum = 0;
+                try
+                {
+                    linenum = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
+                }
+                catch
+                {
+                    //Stack trace is not available!
+                }
+                helper.WriteLog(linenum + ": " + ex);
             }
         }
 
@@ -55,33 +64,50 @@ namespace CreateFolder
         {
             Cursor.Current = Cursors.WaitCursor;
             checkedListBox_Result.Items.Clear();
-
-            if (!string.IsNullOrEmpty(cbBeginCommit.Text) && !string.IsNullOrEmpty(cbEndCommit.Text))
+            try
             {
-                DirectoryInfo di = new DirectoryInfo(tbProjectPath.Text);
-                var allowedFileTypes = tbFileSelect.Text.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries).ToList();
-                if (di.Exists)
+                if (!string.IsNullOrEmpty(cbBeginCommit.Text) && !string.IsNullOrEmpty(cbEndCommit.Text))
                 {
-                    var items = checkedListBox_Result.Items;
-                    var result = helper.GetFiles(cbBeginCommit.Text, cbEndCommit.Text, di.FullName);
-                    var arrFile = helper.GetListFile(result);
-                    foreach (var item in arrFile)
+                    DirectoryInfo di = new DirectoryInfo(tbProjectPath.Text);
+                    var allowedFileTypes = tbFileSelect.Text.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                    if (di.Exists)
                     {
-                        var fileType = item.Substring(item.LastIndexOf("."));
-                        items.Add(item, allowedFileTypes.Contains(fileType));
+                        var items = checkedListBox_Result.Items;
+                        var result = helper.GetFiles(cbBeginCommit.Text, cbEndCommit.Text, di.FullName);
+                        var arrFile = helper.GetListFile(result);
+                        foreach (var item in arrFile)
+                        {
+                            var fileType = item.Substring(item.LastIndexOf("."));
+                            items.Add(item, allowedFileTypes.Contains(fileType));
+                        }
                     }
                 }
+                if (checkedListBox_Result.Items.Count > 0)
+                {
+                    btnGeneratePackage.Enabled = true;
+                }
             }
-            if(checkedListBox_Result.Items.Count > 0)
+            catch (Exception ex)
             {
-                btnGeneratePackage.Enabled = true;
+                int linenum = 0;
+                try
+                {
+                    linenum = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
+                }
+                catch
+                {
+                    //Stack trace is not available!
+                }
+                helper.WriteLog(linenum + ": " + ex);
             }
             Cursor.Current = Cursors.Default;
         }
 
         private void Btn_UpdateConfig_Click(object sender, EventArgs e)
         {
-            var appConfigs = new List<AppConfigModel>()
+            try
+            {
+                var appConfigs = new List<AppConfigModel>()
             {
                 new AppConfigModel()
                 {
@@ -104,18 +130,33 @@ namespace CreateFolder
                     Value = tbFileSelect.Text
                 }
             };
-            helper.UpdateAppConfigs(appConfigs);
-            if (!string.IsNullOrEmpty(tbProjectPath.Text))
-            {
-                var numTake = tbNumtake.Text != null ? int.Parse(tbNumtake.Text) : 10;
-                var datasource = helper.UpdateBeginAndEndCommit(tbProjectPath.Text, numTake);
-                if (datasource != null)
+                helper.UpdateAppConfigs(appConfigs);
+                if (!string.IsNullOrEmpty(tbProjectPath.Text))
                 {
-                    var clone = new List<string>(datasource);
-                    cbBeginCommit.DataSource = datasource;
-                    cbEndCommit.DataSource = clone;
+                    var numTake = tbNumtake.Text != null ? int.Parse(tbNumtake.Text) : 10;
+                    var datasource = helper.UpdateBeginAndEndCommit(tbProjectPath.Text, numTake);
+                    if (datasource != null)
+                    {
+                        var clone = new List<string>(datasource);
+                        cbBeginCommit.DataSource = datasource;
+                        cbEndCommit.DataSource = clone;
+                    }
                 }
             }
+            catch(Exception ex)
+            {
+                int linenum = 0;
+                try
+                {
+                    linenum = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
+                }
+                catch
+                {
+                    //Stack trace is not available!
+                }
+                helper.WriteLog(linenum + ": " + ex);
+            }
+           
         }
 
         private void btnGeneratePackage_Click(object sender, EventArgs e)
@@ -130,7 +171,16 @@ namespace CreateFolder
             }
             catch (Exception ex)
             {
-                throw ex;
+                int linenum = 0;
+                try
+                {
+                    linenum = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
+                }
+                catch
+                {
+                    //Stack trace is not available!
+                }
+                helper.WriteLog(linenum + ": " + ex);
             }
         }
 
