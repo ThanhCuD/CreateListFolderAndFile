@@ -31,12 +31,13 @@
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbEndCommit = new System.Windows.Forms.ComboBox();
+            this.cbBeginCommit = new System.Windows.Forms.ComboBox();
             this.label_Commit2 = new System.Windows.Forms.Label();
-            this.tbEndCommit = new System.Windows.Forms.TextBox();
             this.label_Commit1 = new System.Windows.Forms.Label();
-            this.tbBeginCommit = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.checkBox_IncludeDirectory = new System.Windows.Forms.CheckBox();
+            this.tbNumtake = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.label_IncludeFileTypes = new System.Windows.Forms.Label();
             this.tbFileSelect = new System.Windows.Forms.TextBox();
             this.label_Savepath = new System.Windows.Forms.Label();
@@ -50,9 +51,14 @@
             this.btnGetFile = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.checkedListBox_Result = new System.Windows.Forms.CheckedListBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.checkListBox_Package = new System.Windows.Forms.CheckedListBox();
+            this.bt_OpenSavePath = new System.Windows.Forms.Button();
+            this.btCleanSaveFolder = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -61,10 +67,10 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.cbEndCommit);
+            this.groupBox2.Controls.Add(this.cbBeginCommit);
             this.groupBox2.Controls.Add(this.label_Commit2);
-            this.groupBox2.Controls.Add(this.tbEndCommit);
             this.groupBox2.Controls.Add(this.label_Commit1);
-            this.groupBox2.Controls.Add(this.tbBeginCommit);
             this.groupBox2.Location = new System.Drawing.Point(13, 256);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
@@ -74,23 +80,31 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Choose Commit";
             // 
+            // cbEndCommit
+            // 
+            this.cbEndCommit.FormattingEnabled = true;
+            this.cbEndCommit.Location = new System.Drawing.Point(149, 67);
+            this.cbEndCommit.Name = "cbEndCommit";
+            this.cbEndCommit.Size = new System.Drawing.Size(267, 24);
+            this.cbEndCommit.TabIndex = 19;
+            // 
+            // cbBeginCommit
+            // 
+            this.cbBeginCommit.FormattingEnabled = true;
+            this.cbBeginCommit.Location = new System.Drawing.Point(149, 35);
+            this.cbBeginCommit.Name = "cbBeginCommit";
+            this.cbBeginCommit.Size = new System.Drawing.Size(267, 24);
+            this.cbBeginCommit.TabIndex = 14;
+            // 
             // label_Commit2
             // 
             this.label_Commit2.AutoSize = true;
             this.label_Commit2.Location = new System.Drawing.Point(13, 70);
             this.label_Commit2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_Commit2.Name = "label_Commit2";
-            this.label_Commit2.Size = new System.Drawing.Size(83, 17);
+            this.label_Commit2.Size = new System.Drawing.Size(99, 17);
             this.label_Commit2.TabIndex = 13;
-            this.label_Commit2.Text = "End Commit";
-            // 
-            // tbEndCommit
-            // 
-            this.tbEndCommit.Location = new System.Drawing.Point(149, 66);
-            this.tbEndCommit.Margin = new System.Windows.Forms.Padding(4);
-            this.tbEndCommit.Name = "tbEndCommit";
-            this.tbEndCommit.Size = new System.Drawing.Size(265, 22);
-            this.tbEndCommit.TabIndex = 11;
+            this.label_Commit2.Text = "Bigger Commit";
             // 
             // label_Commit1
             // 
@@ -98,21 +112,14 @@
             this.label_Commit1.Location = new System.Drawing.Point(13, 38);
             this.label_Commit1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_Commit1.Name = "label_Commit1";
-            this.label_Commit1.Size = new System.Drawing.Size(94, 17);
+            this.label_Commit1.Size = new System.Drawing.Size(105, 17);
             this.label_Commit1.TabIndex = 8;
-            this.label_Commit1.Text = "Begin Commit";
-            // 
-            // tbBeginCommit
-            // 
-            this.tbBeginCommit.Location = new System.Drawing.Point(149, 34);
-            this.tbBeginCommit.Margin = new System.Windows.Forms.Padding(4);
-            this.tbBeginCommit.Name = "tbBeginCommit";
-            this.tbBeginCommit.Size = new System.Drawing.Size(265, 22);
-            this.tbBeginCommit.TabIndex = 8;
+            this.label_Commit1.Text = "Smaller Commit";
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.checkBox_IncludeDirectory);
+            this.groupBox1.Controls.Add(this.tbNumtake);
+            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label_IncludeFileTypes);
             this.groupBox1.Controls.Add(this.tbFileSelect);
             this.groupBox1.Controls.Add(this.label_Savepath);
@@ -131,16 +138,23 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Setting";
             // 
-            // checkBox_IncludeDirectory
+            // tbNumtake
             // 
-            this.checkBox_IncludeDirectory.AutoSize = true;
-            this.checkBox_IncludeDirectory.Location = new System.Drawing.Point(17, 177);
-            this.checkBox_IncludeDirectory.Margin = new System.Windows.Forms.Padding(4);
-            this.checkBox_IncludeDirectory.Name = "checkBox_IncludeDirectory";
-            this.checkBox_IncludeDirectory.Size = new System.Drawing.Size(87, 38);
-            this.checkBox_IncludeDirectory.TabIndex = 15;
-            this.checkBox_IncludeDirectory.Text = "Include\r\nDirectory\r\n";
-            this.checkBox_IncludeDirectory.UseVisualStyleBackColor = true;
+            this.tbNumtake.Location = new System.Drawing.Point(149, 178);
+            this.tbNumtake.Margin = new System.Windows.Forms.Padding(4);
+            this.tbNumtake.Name = "tbNumtake";
+            this.tbNumtake.Size = new System.Drawing.Size(35, 22);
+            this.tbNumtake.TabIndex = 11;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 180);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(108, 17);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Number Commit";
             // 
             // label_IncludeFileTypes
             // 
@@ -190,13 +204,14 @@
             // 
             // Btn_UpdateConfig
             // 
-            this.Btn_UpdateConfig.Location = new System.Drawing.Point(149, 177);
+            this.Btn_UpdateConfig.Location = new System.Drawing.Point(253, 173);
             this.Btn_UpdateConfig.Margin = new System.Windows.Forms.Padding(4);
             this.Btn_UpdateConfig.Name = "Btn_UpdateConfig";
-            this.Btn_UpdateConfig.Size = new System.Drawing.Size(267, 37);
+            this.Btn_UpdateConfig.Size = new System.Drawing.Size(161, 33);
             this.Btn_UpdateConfig.TabIndex = 1;
             this.Btn_UpdateConfig.Text = "Update Config";
             this.Btn_UpdateConfig.UseVisualStyleBackColor = true;
+            this.Btn_UpdateConfig.Click += new System.EventHandler(this.Btn_UpdateConfig_Click);
             // 
             // label_GitExePath
             // 
@@ -234,6 +249,7 @@
             this.btnGeneratePackage.TabIndex = 17;
             this.btnGeneratePackage.Text = "Generate Package";
             this.btnGeneratePackage.UseVisualStyleBackColor = true;
+            this.btnGeneratePackage.Click += new System.EventHandler(this.btnGeneratePackage_Click);
             // 
             // btnGetFile
             // 
@@ -253,7 +269,7 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox3.Size = new System.Drawing.Size(734, 434);
+            this.groupBox3.Size = new System.Drawing.Size(1013, 325);
             this.groupBox3.TabIndex = 18;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Results";
@@ -264,14 +280,61 @@
             this.checkedListBox_Result.Location = new System.Drawing.Point(8, 23);
             this.checkedListBox_Result.Margin = new System.Windows.Forms.Padding(4);
             this.checkedListBox_Result.Name = "checkedListBox_Result";
-            this.checkedListBox_Result.Size = new System.Drawing.Size(718, 378);
+            this.checkedListBox_Result.Size = new System.Drawing.Size(991, 293);
             this.checkedListBox_Result.TabIndex = 14;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.checkListBox_Package);
+            this.groupBox4.Location = new System.Drawing.Point(487, 374);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox4.Size = new System.Drawing.Size(1013, 363);
+            this.groupBox4.TabIndex = 19;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Results";
+            // 
+            // checkListBox_Package
+            // 
+            this.checkListBox_Package.FormattingEnabled = true;
+            this.checkListBox_Package.Location = new System.Drawing.Point(8, 23);
+            this.checkListBox_Package.Margin = new System.Windows.Forms.Padding(4);
+            this.checkListBox_Package.Name = "checkListBox_Package";
+            this.checkListBox_Package.Size = new System.Drawing.Size(991, 327);
+            this.checkListBox_Package.TabIndex = 14;
+            // 
+            // bt_OpenSavePath
+            // 
+            this.bt_OpenSavePath.Enabled = false;
+            this.bt_OpenSavePath.Location = new System.Drawing.Point(28, 479);
+            this.bt_OpenSavePath.Margin = new System.Windows.Forms.Padding(4);
+            this.bt_OpenSavePath.Name = "bt_OpenSavePath";
+            this.bt_OpenSavePath.Size = new System.Drawing.Size(399, 37);
+            this.bt_OpenSavePath.TabIndex = 20;
+            this.bt_OpenSavePath.Text = "Open Save Path";
+            this.bt_OpenSavePath.UseVisualStyleBackColor = true;
+            this.bt_OpenSavePath.Click += new System.EventHandler(this.bt_OpenSavePath_Click);
+            // 
+            // btCleanSaveFolder
+            // 
+            this.btCleanSaveFolder.Location = new System.Drawing.Point(28, 524);
+            this.btCleanSaveFolder.Margin = new System.Windows.Forms.Padding(4);
+            this.btCleanSaveFolder.Name = "btCleanSaveFolder";
+            this.btCleanSaveFolder.Size = new System.Drawing.Size(399, 37);
+            this.btCleanSaveFolder.TabIndex = 21;
+            this.btCleanSaveFolder.Text = "Clean Save Folder";
+            this.btCleanSaveFolder.UseVisualStyleBackColor = true;
+            this.btCleanSaveFolder.Click += new System.EventHandler(this.btCleanSaveFolder_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1234, 511);
+            this.ClientSize = new System.Drawing.Size(1513, 750);
+            this.Controls.Add(this.btCleanSaveFolder);
+            this.Controls.Add(this.bt_OpenSavePath);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.btnGeneratePackage);
             this.Controls.Add(this.btnGetFile);
@@ -285,6 +348,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox3.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -294,11 +358,8 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label_Commit2;
-        private System.Windows.Forms.TextBox tbEndCommit;
         private System.Windows.Forms.Label label_Commit1;
-        private System.Windows.Forms.TextBox tbBeginCommit;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.CheckBox checkBox_IncludeDirectory;
         private System.Windows.Forms.Label label_IncludeFileTypes;
         private System.Windows.Forms.TextBox tbFileSelect;
         private System.Windows.Forms.Label label_Savepath;
@@ -312,6 +373,14 @@
         private System.Windows.Forms.Button btnGetFile;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.CheckedListBox checkedListBox_Result;
+        private System.Windows.Forms.ComboBox cbBeginCommit;
+        private System.Windows.Forms.ComboBox cbEndCommit;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox tbNumtake;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.CheckedListBox checkListBox_Package;
+        private System.Windows.Forms.Button bt_OpenSavePath;
+        private System.Windows.Forms.Button btCleanSaveFolder;
     }
 }
 
