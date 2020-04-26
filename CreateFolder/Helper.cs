@@ -105,6 +105,7 @@ namespace CreateFolder
                     }
                 }
             }
+            arr = arr.Distinct().ToList();
             return arr;
         }
     }
