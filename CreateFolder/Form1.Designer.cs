@@ -55,6 +55,8 @@
             this.checkListBox_Package = new System.Windows.Forms.CheckedListBox();
             this.bt_OpenSavePath = new System.Windows.Forms.Button();
             this.btCleanSaveFolder = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.tbRootLog = new System.Windows.Forms.TextBox();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -71,7 +73,7 @@
             this.groupBox2.Controls.Add(this.cbBeginCommit);
             this.groupBox2.Controls.Add(this.label_Commit2);
             this.groupBox2.Controls.Add(this.label_Commit1);
-            this.groupBox2.Location = new System.Drawing.Point(13, 256);
+            this.groupBox2.Location = new System.Drawing.Point(13, 358);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
@@ -118,6 +120,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.tbRootLog);
             this.groupBox1.Controls.Add(this.tbNumtake);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label_IncludeFileTypes);
@@ -133,7 +137,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(437, 235);
+            this.groupBox1.Size = new System.Drawing.Size(437, 295);
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Setting";
@@ -159,7 +163,7 @@
             // label_IncludeFileTypes
             // 
             this.label_IncludeFileTypes.AutoSize = true;
-            this.label_IncludeFileTypes.Location = new System.Drawing.Point(13, 143);
+            this.label_IncludeFileTypes.Location = new System.Drawing.Point(13, 144);
             this.label_IncludeFileTypes.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_IncludeFileTypes.Name = "label_IncludeFileTypes";
             this.label_IncludeFileTypes.Size = new System.Drawing.Size(73, 17);
@@ -204,10 +208,10 @@
             // 
             // Btn_UpdateConfig
             // 
-            this.Btn_UpdateConfig.Location = new System.Drawing.Point(253, 173);
+            this.Btn_UpdateConfig.Location = new System.Drawing.Point(30, 242);
             this.Btn_UpdateConfig.Margin = new System.Windows.Forms.Padding(4);
             this.Btn_UpdateConfig.Name = "Btn_UpdateConfig";
-            this.Btn_UpdateConfig.Size = new System.Drawing.Size(161, 33);
+            this.Btn_UpdateConfig.Size = new System.Drawing.Size(362, 33);
             this.Btn_UpdateConfig.TabIndex = 1;
             this.Btn_UpdateConfig.Text = "Update Config";
             this.Btn_UpdateConfig.UseVisualStyleBackColor = true;
@@ -242,7 +246,7 @@
             // btnGeneratePackage
             // 
             this.btnGeneratePackage.Enabled = false;
-            this.btnGeneratePackage.Location = new System.Drawing.Point(29, 434);
+            this.btnGeneratePackage.Location = new System.Drawing.Point(29, 563);
             this.btnGeneratePackage.Margin = new System.Windows.Forms.Padding(4);
             this.btnGeneratePackage.Name = "btnGeneratePackage";
             this.btnGeneratePackage.Size = new System.Drawing.Size(399, 37);
@@ -253,7 +257,7 @@
             // 
             // btnGetFile
             // 
-            this.btnGetFile.Location = new System.Drawing.Point(29, 390);
+            this.btnGetFile.Location = new System.Drawing.Point(29, 519);
             this.btnGetFile.Margin = new System.Windows.Forms.Padding(4);
             this.btnGetFile.Name = "btnGetFile";
             this.btnGetFile.Size = new System.Drawing.Size(399, 37);
@@ -307,7 +311,7 @@
             // bt_OpenSavePath
             // 
             this.bt_OpenSavePath.Enabled = false;
-            this.bt_OpenSavePath.Location = new System.Drawing.Point(28, 479);
+            this.bt_OpenSavePath.Location = new System.Drawing.Point(28, 608);
             this.bt_OpenSavePath.Margin = new System.Windows.Forms.Padding(4);
             this.bt_OpenSavePath.Name = "bt_OpenSavePath";
             this.bt_OpenSavePath.Size = new System.Drawing.Size(399, 37);
@@ -318,7 +322,7 @@
             // 
             // btCleanSaveFolder
             // 
-            this.btCleanSaveFolder.Location = new System.Drawing.Point(28, 524);
+            this.btCleanSaveFolder.Location = new System.Drawing.Point(28, 653);
             this.btCleanSaveFolder.Margin = new System.Windows.Forms.Padding(4);
             this.btCleanSaveFolder.Name = "btCleanSaveFolder";
             this.btCleanSaveFolder.Size = new System.Drawing.Size(399, 37);
@@ -326,6 +330,24 @@
             this.btCleanSaveFolder.Text = "Clean Save Folder";
             this.btCleanSaveFolder.UseVisualStyleBackColor = true;
             this.btCleanSaveFolder.Click += new System.EventHandler(this.btCleanSaveFolder_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(13, 217);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(62, 17);
+            this.label2.TabIndex = 13;
+            this.label2.Text = "RootLog";
+            // 
+            // tbRootLog
+            // 
+            this.tbRootLog.Location = new System.Drawing.Point(149, 212);
+            this.tbRootLog.Margin = new System.Windows.Forms.Padding(4);
+            this.tbRootLog.Name = "tbRootLog";
+            this.tbRootLog.Size = new System.Drawing.Size(265, 22);
+            this.tbRootLog.TabIndex = 12;
             // 
             // Form1
             // 
@@ -381,6 +403,8 @@
         private System.Windows.Forms.CheckedListBox checkListBox_Package;
         private System.Windows.Forms.Button bt_OpenSavePath;
         private System.Windows.Forms.Button btCleanSaveFolder;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox tbRootLog;
     }
 }
 

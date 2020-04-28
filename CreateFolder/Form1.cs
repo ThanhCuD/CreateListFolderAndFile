@@ -43,6 +43,10 @@ namespace CreateFolder
 
                     var includeFileTypesKey = configs.Where(x => x.Key == HelperModel.IncludeFileTypes).FirstOrDefault();
                     tbFileSelect.Text = string.IsNullOrEmpty(includeFileTypesKey.Value) ? "" : includeFileTypesKey.Value;
+
+                    var rootLog = configs.Where(x => x.Key == HelperModel.RootLog).FirstOrDefault();
+                    tbRootLog.Text = string.IsNullOrEmpty(rootLog.Value) ? "" : rootLog.Value;
+
                 }
             }
             catch (Exception ex)
@@ -128,6 +132,11 @@ namespace CreateFolder
                 {
                     Key = HelperModel.IncludeFileTypes,
                     Value = tbFileSelect.Text
+                },
+                new AppConfigModel()
+                {
+                    Key = HelperModel.RootLog,
+                    Value = tbRootLog.Text
                 }
             };
                 helper.UpdateAppConfigs(appConfigs);

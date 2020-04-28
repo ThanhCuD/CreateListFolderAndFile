@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using LogNetFramWork;
 
 namespace CreateFolder
 {
@@ -17,6 +18,8 @@ namespace CreateFolder
 
         public string GetFiles(string beginCommit, string endCommit, string workDirectory)
         {
+            Log.Root = "C:\\CreateFolder\\Logs\\";
+            Log.WriteLog("Go in side Foldsadas");
             var command = string.Format(" show --name-only --oneline {0}^..{1}", beginCommit, endCommit);
             var gitFilePath = ConfigurationManager.AppSettings["GitExeFolder"] ?? "C:\\Program Files\\Git\\bin\\git.exe";
             try
@@ -98,6 +101,7 @@ namespace CreateFolder
                 {
                     //Stack trace is not available!
                 }
+               
                 WriteLog("At Line :" + linenum + ": " + ex);
                 return "";
             }
@@ -426,6 +430,7 @@ namespace CreateFolder
         public static string ProjectFolder = "ProjectFolder";
         public static string DestinationFolder = "DestinationFolder";
         public static string IncludeFileTypes = "IncludeFileTypes";
+        public static string RootLog = "RootLog";
     }
 
     public class AppConfigModel
