@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace CreateFolder
@@ -43,10 +45,6 @@ namespace CreateFolder
 
                     var includeFileTypesKey = configs.Where(x => x.Key == HelperModel.IncludeFileTypes).FirstOrDefault();
                     tbFileSelect.Text = string.IsNullOrEmpty(includeFileTypesKey.Value) ? "" : includeFileTypesKey.Value;
-
-                    var rootLog = configs.Where(x => x.Key == HelperModel.RootLog).FirstOrDefault();
-                    tbRootLog.Text = string.IsNullOrEmpty(rootLog.Value) ? "" : rootLog.Value;
-
                 }
             }
             catch (Exception ex)
@@ -132,11 +130,6 @@ namespace CreateFolder
                 {
                     Key = HelperModel.IncludeFileTypes,
                     Value = tbFileSelect.Text
-                },
-                new AppConfigModel()
-                {
-                    Key = HelperModel.RootLog,
-                    Value = tbRootLog.Text
                 }
             };
                 helper.UpdateAppConfigs(appConfigs);
@@ -209,6 +202,23 @@ namespace CreateFolder
             {
                 dir.Delete(true);
             }
+        }
+
+        private void bt_copy_address_Click(object sender, EventArgs e)
+        {
+            var checkedItems = checkListBox_Package.CheckedItems;
+            var result = "";
+            foreach (var item in checkedItems)
+            {
+                var z = item.ToString();
+
+                string builder =  z.Replace(tbSavePath.Text+"\\", "");
+                result += builder+ Environment.NewLine;
+            }
+            Thread thread = new Thread(() => Clipboard.SetText(result));
+            thread.SetApartmentState(ApartmentState.STA); //Set the thread to STA
+            thread.Start();
+            thread.Join();
         }
     }
 }

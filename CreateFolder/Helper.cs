@@ -275,7 +275,7 @@ namespace CreateFolder
                 listFile = listFile.OrderBy(_ => _).ToList();
                 foreach (var item in listFile)
                 {
-                    checkPagake.Items.Add(item, false);
+                    checkPagake.Items.Add(item, true);
                 }
 
             }
