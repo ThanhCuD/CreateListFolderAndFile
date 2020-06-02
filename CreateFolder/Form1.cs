@@ -77,10 +77,19 @@ namespace CreateFolder
                         var items = checkedListBox_Result.Items;
                         var result = helper.GetFiles(cbBeginCommit.Text, cbEndCommit.Text, di.FullName);
                         var arrFile = helper.GetListFile(result);
+                        var fgHascsFile = false;
                         foreach (var item in arrFile)
                         {
                             var fileType = item.Substring(item.LastIndexOf("."));
+                            if (fileType == ".cs")
+                            {
+                                fgHascsFile = true;
+                            }
                             items.Add(item, allowedFileTypes.Contains(fileType));
+                        }
+                        if (fgHascsFile)
+                        {
+                            items.Add("SitefinityWebApp/bin/SitefinityWebApp.dll", true);
                         }
                     }
                 }
