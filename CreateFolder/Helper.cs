@@ -89,7 +89,18 @@ namespace CreateFolder
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                int linenum = 0;
+                try
+                {
+                    linenum = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
+                }
+                catch
+                {
+                    //Stack trace is not available!
+                }
+               
+                WriteLog("At Line :" + linenum + ": " + ex);
+                return "";
             }
         }
 
@@ -113,7 +124,16 @@ namespace CreateFolder
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                int linenum = 0;
+                try
+                {
+                    linenum = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
+                }
+                catch
+                {
+                    //Stack trace is not available!
+                }
+                WriteLog("At Line :" + linenum + ": " + ex);
             }
             return arr;
         }
@@ -169,7 +189,16 @@ namespace CreateFolder
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                int linenum = 0;
+                try
+                {
+                    linenum = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
+                }
+                catch
+                {
+                    //Stack trace is not available!
+                }
+                WriteLog("At Line :" + linenum + ": " + ex);
             }
 
             return "All Configs updated";
@@ -194,7 +223,16 @@ namespace CreateFolder
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                int linenum = 0;
+                try
+                {
+                    linenum = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
+                }
+                catch
+                {
+                    //Stack trace is not available!
+                }
+                WriteLog("At Line :" + linenum + ": " + ex);
                 return arr;
             }
         }
@@ -240,7 +278,16 @@ namespace CreateFolder
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                int linenum = 0;
+                try
+                {
+                    linenum = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
+                }
+                catch
+                {
+                    //Stack trace is not available!
+                }
+                WriteLog("At Line :" + linenum + ": " + ex);
             }
         }
 
