@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -25,7 +24,7 @@ namespace CreateFolder
 
         private void Form1_Load(object sender, EventArgs e)
         {
-           
+
         }
         private void InitConfig()
         {
@@ -49,16 +48,7 @@ namespace CreateFolder
             }
             catch (Exception ex)
             {
-                int linenum = 0;
-                try
-                {
-                    linenum = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
-                }
-                catch
-                {
-                    //Stack trace is not available!
-                }
-                helper.WriteLog(linenum + ": " + ex);
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -77,20 +67,33 @@ namespace CreateFolder
                         var items = checkedListBox_Result.Items;
                         var result = helper.GetFiles(cbBeginCommit.Text, cbEndCommit.Text, di.FullName);
                         var arrFile = helper.GetListFile(result);
-                        var fgHascsFile = false;
+                        
+                        var hasDllFIle = arrFile.Select(_ => _.Substring(_.LastIndexOf(".")))
+                            .Any(_ => _ == ".cs");
+                        if (hasDllFIle)
+                        {
+                            items.Add("bin/SitefinityWebApp.dll", true);
+                        }
                         foreach (var item in arrFile)
                         {
-                            var fileType = item.Substring(item.LastIndexOf("."));
-                            if (fileType == ".cs")
+                            var index = item.LastIndexOf(".");
+                            if (index > -1)
                             {
-                                fgHascsFile = true;
+                                var fileType = item.Substring(index);
+                                if (cbCAAS.Checked)
+                                {
+                                    var list = item.Split('/').ToList();
+                                    list.RemoveAt(0);
+                                    var newItem = string.Join("/", list);
+                                    items.Add(newItem, allowedFileTypes.Contains(fileType));
+                                }
+                                else
+                                {
+                                    items.Add(item, allowedFileTypes.Contains(fileType));
+                                }
                             }
-                            items.Add(item, allowedFileTypes.Contains(fileType));
                         }
-                        if (fgHascsFile)
-                        {
-                            items.Add("SitefinityWebApp/bin/SitefinityWebApp.dll", true);
-                        }
+                        
                     }
                 }
                 if (checkedListBox_Result.Items.Count > 0)
@@ -100,16 +103,7 @@ namespace CreateFolder
             }
             catch (Exception ex)
             {
-                int linenum = 0;
-                try
-                {
-                    linenum = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
-                }
-                catch
-                {
-                    //Stack trace is not available!
-                }
-                helper.WriteLog(linenum + ": " + ex);
+                MessageBox.Show(ex.Message);
             }
             Cursor.Current = Cursors.Default;
         }
@@ -154,20 +148,11 @@ namespace CreateFolder
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                int linenum = 0;
-                try
-                {
-                    linenum = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
-                }
-                catch
-                {
-                    //Stack trace is not available!
-                }
-                helper.WriteLog(linenum + ": " + ex);
+                MessageBox.Show(ex.Message);
             }
-           
+
         }
 
         private void btnGeneratePackage_Click(object sender, EventArgs e)
@@ -177,21 +162,12 @@ namespace CreateFolder
                 var checkedItems = checkedListBox_Result.CheckedItems;
                 if (checkedItems.Count > 0)
                 {
-                    helper.GenerateFilesForDeployment(checkedItems, tbProjectPath.Text, tbSavePath.Text,ref checkListBox_Package);
+                    helper.GenerateFilesForDeployment(checkedItems, tbProjectPath.Text, tbSavePath.Text, ref checkListBox_Package);
                 }
             }
             catch (Exception ex)
             {
-                int linenum = 0;
-                try
-                {
-                    linenum = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
-                }
-                catch
-                {
-                    //Stack trace is not available!
-                }
-                helper.WriteLog(linenum + ": " + ex);
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -221,8 +197,8 @@ namespace CreateFolder
             {
                 var z = item.ToString();
 
-                string builder =  z.Replace(tbSavePath.Text+"\\", "");
-                result += builder+ Environment.NewLine;
+                string builder = z.Replace(tbSavePath.Text + "\\", "");
+                result += builder + Environment.NewLine;
             }
             Thread thread = new Thread(() => Clipboard.SetText(result));
             thread.SetApartmentState(ApartmentState.STA); //Set the thread to STA

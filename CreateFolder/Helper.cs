@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using LogNetFramWork;
 
 namespace CreateFolder
 {
@@ -18,8 +17,6 @@ namespace CreateFolder
 
         public string GetFiles(string beginCommit, string endCommit, string workDirectory)
         {
-            Log.Root = "C:\\CreateFolder\\Logs\\";
-            Log.WriteLog("Go in side Foldsadas");
             var command = string.Format(" show --name-only --oneline {0}^..{1}", beginCommit, endCommit);
             var gitFilePath = ConfigurationManager.AppSettings["GitExeFolder"] ?? "C:\\Program Files\\Git\\bin\\git.exe";
             try
@@ -92,18 +89,7 @@ namespace CreateFolder
             }
             catch (Exception ex)
             {
-                int linenum = 0;
-                try
-                {
-                    linenum = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
-                }
-                catch
-                {
-                    //Stack trace is not available!
-                }
-               
-                WriteLog("At Line :" + linenum + ": " + ex);
-                return "";
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -127,16 +113,7 @@ namespace CreateFolder
             }
             catch (Exception ex)
             {
-                int linenum = 0;
-                try
-                {
-                    linenum = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
-                }
-                catch
-                {
-                    //Stack trace is not available!
-                }
-                WriteLog("At Line :" + linenum + ": " + ex);
+                MessageBox.Show(ex.Message);
             }
             return arr;
         }
@@ -192,16 +169,7 @@ namespace CreateFolder
             }
             catch (Exception ex)
             {
-                int linenum = 0;
-                try
-                {
-                    linenum = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
-                }
-                catch
-                {
-                    //Stack trace is not available!
-                }
-                WriteLog("At Line :" + linenum + ": " + ex);
+                MessageBox.Show(ex.Message);
             }
 
             return "All Configs updated";
@@ -226,16 +194,7 @@ namespace CreateFolder
             }
             catch (Exception ex)
             {
-                int linenum = 0;
-                try
-                {
-                    linenum = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
-                }
-                catch
-                {
-                    //Stack trace is not available!
-                }
-                WriteLog("At Line :" + linenum + ": " + ex);
+                MessageBox.Show(ex.Message);
                 return arr;
             }
         }
@@ -250,14 +209,14 @@ namespace CreateFolder
                 foreach (var checkItem in checkedItems)
                 {
                     var source = Path.Combine(projectPath, checkItem.ToString().Replace("/", "\\"));
-                    var arr = checkItem.ToString().Split('/');
-                    if (arr[1] == "App_Data")
+                    var arr = checkItem.ToString().Split('/').ToList();
+                    if (arr[0] == "App_Data")
                     {
-                        arr[0] = rootData;
+                        arr.Insert(0, rootData);
                     }
                     else
                     {
-                        arr[0] = rootWebsite;
+                        arr.Insert(0, rootWebsite);
                     }
                     var item = string.Join("\\", arr);
                     if (File.Exists(source))
@@ -281,16 +240,7 @@ namespace CreateFolder
             }
             catch (Exception ex)
             {
-                int linenum = 0;
-                try
-                {
-                    linenum = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
-                }
-                catch
-                {
-                    //Stack trace is not available!
-                }
-                WriteLog("At Line :" + linenum + ": " + ex);
+                MessageBox.Show(ex.Message);
             }
         }
 
