@@ -54,6 +54,7 @@ namespace CreateFolder
 
         private void btnGetFile_Click(object sender, EventArgs e)
         {
+            
             Cursor.Current = Cursors.WaitCursor;
             checkedListBox_Result.Items.Clear();
             try
@@ -68,7 +69,7 @@ namespace CreateFolder
                         var result = helper.GetFiles(cbBeginCommit.Text, cbEndCommit.Text, di.FullName);
                         var arrFile = helper.GetListFile(result);
                         
-                        var hasDllFIle = arrFile.Select(_ => _.Substring(_.LastIndexOf(".")))
+                        var hasDllFIle = arrFile.Select(_ => _.LastIndexOf(".")!=-1 ? _.Substring(_.LastIndexOf(".")) : _)
                             .Any(_ => _ == ".cs");
                         if (hasDllFIle)
                         {
