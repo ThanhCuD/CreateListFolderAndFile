@@ -107,17 +107,31 @@ namespace CreateFolder
         public IEnumerable<string> GetListFile(string str)
         {
             var arr = new List<string>();
+
+            
             try
             {
                 using (var reader = new StringReader(str))
                 {
                     string line;
+                    var changeDll = false;
                     while ((line = reader.ReadLine()) != null)
                     {
-                        if (line.Contains("/"))
+                        if (!changeDll) {
+                            changeDll = line.EndsWith(".cs");
+                        }
+                        if (line.Contains("/") && !line.Contains(" ") && !line.EndsWith(".cs"))
                         {
+                            if(line.StartsWith("M") || line.StartsWith("A"))
+                            {
+                                line = "N" + line.Substring(1);
+                            }
                             arr.Add(line);
                         }
+                    }
+                    if (changeDll)
+                    {
+                        arr.Add("N\tbin/SitefinityWebApp.dll");
                     }
                 }
                 arr = arr.Distinct().ToList();
@@ -239,12 +253,17 @@ namespace CreateFolder
 
         public void GenerateFilesForDeployment(CheckedListBox.CheckedItemCollection checkedItems, string projectPath, string destinationPath, ref CheckedListBox checkPagake)
         {
-            var arrStatus = new List<string> { "A", "D", "M" };
             try
             {
                 CreateOrCleanDirectory(destinationPath);
                 checkPagake.Items.Clear();
                 var lst = new List<string>();
+                var lstItem = new List<string>();
+                for (int i = 0; i < checkedItems.Count; i++)
+                {
+                    lstItem.Add(checkedItems[i].ToString());
+                }
+                lstItem = lstItem.OrderBy(_ => _).ToList();
                 foreach (var checkItem in checkedItems)
                 {
                     var arrTemp = checkItem.ToString().Split('\t');
@@ -277,6 +296,7 @@ namespace CreateFolder
                         }
                     }
                 }
+                lst = lst.OrderBy(_ => _).ToList();
                 foreach (var item in lst)
                 {
                     checkPagake.Items.Add(item, true);
@@ -294,9 +314,9 @@ namespace CreateFolder
                     //Stack trace is not available!
                 }
                 WriteLog("At Line :" + linenum + ": " + ex);
+                throw ex;
             }
         }
-
         public void WriteLog(string strLog)
         {
             StreamWriter log;

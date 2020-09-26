@@ -68,13 +68,6 @@ namespace CreateFolder
                         var items = checkedListBox_Result.Items;
                         var result = helper.GetFiles(cbBeginCommit.Text, cbEndCommit.Text, di.FullName);
                         var arrFile = helper.GetListFile(result);
-                        
-                        var hasDllFIle = arrFile.Select(_ => _.LastIndexOf(".")!=-1 ? _.Substring(_.LastIndexOf(".")) : _)
-                            .Any(_ => _ == ".cs");
-                        if (hasDllFIle)
-                        {
-                            items.Add("bin/SitefinityWebApp.dll", true);
-                        }
                         foreach (var item in arrFile)
                         {
                             var index = item.LastIndexOf(".");
