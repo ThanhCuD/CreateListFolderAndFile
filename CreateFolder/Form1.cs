@@ -76,10 +76,11 @@ namespace CreateFolder
                                 var fileType = item.Substring(index);
                                 if (cbCAAS.Checked)
                                 {
-                                    var list = item.Split('/').ToList();
-                                    list.RemoveAt(0);
-                                    var newItem = string.Join("/", list);
-                                    items.Add(newItem, allowedFileTypes.Contains(fileType));
+                                    //var list = item.Split('/').ToList();
+                                    //list.RemoveAt(0);
+                                    //var newItem = string.Join("/", list);
+                                    var temp = item.Replace("SitefinityWebApp/", "");
+                                    items.Add(temp, allowedFileTypes.Contains(fileType));
                                 }
                                 else
                                 {
