@@ -17,7 +17,7 @@ namespace CreateFolder
 
         public string GetFiles(string beginCommit, string endCommit, string workDirectory)
         {
-            var command = string.Format(" show --name-only --oneline {0}^..{1}", beginCommit, endCommit);
+            var command = string.Format(" log --name-status --oneline {0}^..{1}", beginCommit, endCommit);
             var gitFilePath = ConfigurationManager.AppSettings["GitExeFolder"] ?? "C:\\Program Files\\Git\\bin\\git.exe";
             try
             {
@@ -98,7 +98,7 @@ namespace CreateFolder
                 {
                     //Stack trace is not available!
                 }
-               
+
                 WriteLog("At Line :" + linenum + ": " + ex);
                 return "";
             }
@@ -107,17 +107,31 @@ namespace CreateFolder
         public IEnumerable<string> GetListFile(string str)
         {
             var arr = new List<string>();
+
+            
             try
             {
                 using (var reader = new StringReader(str))
                 {
                     string line;
+                    var changeDll = false;
                     while ((line = reader.ReadLine()) != null)
                     {
-                        if (line.Contains("/"))
+                        if (!changeDll) {
+                            changeDll = line.EndsWith(".cs");
+                        }
+                        if (line.Contains("/") && !line.Contains(" ") && !line.EndsWith(".cs"))
                         {
+                            if(line.StartsWith("M") || line.StartsWith("A"))
+                            {
+                                line = "N" + line.Substring(1);
+                            }
                             arr.Add(line);
                         }
+                    }
+                    if (changeDll)
+                    {
+                        arr.Add("N\tbin/SitefinityWebApp.dll");
                     }
                 }
                 arr = arr.Distinct().ToList();
@@ -243,38 +257,50 @@ namespace CreateFolder
             {
                 CreateOrCleanDirectory(destinationPath);
                 checkPagake.Items.Clear();
-                var listFile = new List<string>();
+                var lst = new List<string>();
+                var lstItem = new List<string>();
+                for (int i = 0; i < checkedItems.Count; i++)
+                {
+                    lstItem.Add(checkedItems[i].ToString());
+                }
+                lstItem = lstItem.OrderBy(_ => _).ToList();
                 foreach (var checkItem in checkedItems)
                 {
-                    var source = Path.Combine(projectPath, checkItem.ToString().Replace("/", "\\"));
-                    var arr = checkItem.ToString().Split('/').ToList();
-                    if (arr[0] == "App_Data")
+                    var arrTemp = checkItem.ToString().Split('\t');
+                    if (arrTemp.Length == 2)
                     {
-                        arr.Insert(0, rootData);
-                    }
-                    else
-                    {
-                        arr.Insert(0, rootWebsite);
-                    }
-                    var item = string.Join("\\", arr);
-                    if (File.Exists(source))
-                    {
-                        var destination = Path.Combine(destinationPath, item);
-                        var directory = Path.GetDirectoryName(destination);
-                        if (!Directory.Exists(directory))
+                        if (arrTemp[0] != "D")
                         {
-                            Directory.CreateDirectory(directory);
+                            var source = Path.Combine(projectPath, arrTemp[1].Replace("/", "\\"));
+                            var arr = arrTemp[1].Split('/').ToList();
+                            if (arr[0] == "App_Data")
+                            {
+                                arr.Insert(0, rootData);
+                            }
+                            else
+                            {
+                                arr.Insert(0, rootWebsite);
+                            }
+                            var item = string.Join("\\", arr);
+                            if (File.Exists(source))
+                            {
+                                var destination = Path.Combine(destinationPath, item);
+                                var directory = Path.GetDirectoryName(destination);
+                                if (!Directory.Exists(directory))
+                                {
+                                    Directory.CreateDirectory(directory);
+                                }
+                                File.Copy(source, destination);
+                                lst.Add(destination);
+                            }
                         }
-                        File.Copy(source, destination);
-                        listFile.Add(destination);
                     }
                 }
-                listFile = listFile.OrderBy(_ => _).ToList();
-                foreach (var item in listFile)
+                lst = lst.OrderBy(_ => _).ToList();
+                foreach (var item in lst)
                 {
                     checkPagake.Items.Add(item, true);
                 }
-
             }
             catch (Exception ex)
             {
@@ -288,9 +314,9 @@ namespace CreateFolder
                     //Stack trace is not available!
                 }
                 WriteLog("At Line :" + linenum + ": " + ex);
+                throw ex;
             }
         }
-
         public void WriteLog(string strLog)
         {
             StreamWriter log;

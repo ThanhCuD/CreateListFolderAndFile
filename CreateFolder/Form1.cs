@@ -54,6 +54,7 @@ namespace CreateFolder
 
         private void btnGetFile_Click(object sender, EventArgs e)
         {
+            
             Cursor.Current = Cursors.WaitCursor;
             checkedListBox_Result.Items.Clear();
             try
@@ -67,13 +68,6 @@ namespace CreateFolder
                         var items = checkedListBox_Result.Items;
                         var result = helper.GetFiles(cbBeginCommit.Text, cbEndCommit.Text, di.FullName);
                         var arrFile = helper.GetListFile(result);
-                        
-                        var hasDllFIle = arrFile.Select(_ => _.Substring(_.LastIndexOf(".")))
-                            .Any(_ => _ == ".cs");
-                        if (hasDllFIle)
-                        {
-                            items.Add("bin/SitefinityWebApp.dll", true);
-                        }
                         foreach (var item in arrFile)
                         {
                             var index = item.LastIndexOf(".");
@@ -82,10 +76,11 @@ namespace CreateFolder
                                 var fileType = item.Substring(index);
                                 if (cbCAAS.Checked)
                                 {
-                                    var list = item.Split('/').ToList();
-                                    list.RemoveAt(0);
-                                    var newItem = string.Join("/", list);
-                                    items.Add(newItem, allowedFileTypes.Contains(fileType));
+                                    //var list = item.Split('/').ToList();
+                                    //list.RemoveAt(0);
+                                    //var newItem = string.Join("/", list);
+                                    var temp = item.Replace("SitefinityWebApp/", "");
+                                    items.Add(temp, allowedFileTypes.Contains(fileType));
                                 }
                                 else
                                 {
