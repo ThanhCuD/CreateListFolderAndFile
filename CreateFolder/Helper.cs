@@ -428,6 +428,9 @@ namespace CreateFolder
         public static string DestinationFolder = "DestinationFolder";
         public static string IncludeFileTypes = "IncludeFileTypes";
         public static string RootLog = "RootLog";
+        public static string ConnectionString = "ConnectionString";
+        public static string Table = "Table";
+        public static string Table2 = "Table2";
     }
 
     public class AppConfigModel

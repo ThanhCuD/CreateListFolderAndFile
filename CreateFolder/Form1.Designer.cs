@@ -31,11 +31,13 @@
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.tbSearchSourceSmaller = new System.Windows.Forms.TextBox();
             this.cbEndCommit = new System.Windows.Forms.ComboBox();
             this.cbBeginCommit = new System.Windows.Forms.ComboBox();
             this.label_Commit2 = new System.Windows.Forms.Label();
             this.label_Commit1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbCAAS = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.tbNumtake = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -57,7 +59,6 @@
             this.bt_OpenSavePath = new System.Windows.Forms.Button();
             this.btCleanSaveFolder = new System.Windows.Forms.Button();
             this.bt_copy_address = new System.Windows.Forms.Button();
-            this.cbCAAS = new System.Windows.Forms.CheckBox();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -70,6 +71,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.tbSearchSourceSmaller);
             this.groupBox2.Controls.Add(this.cbEndCommit);
             this.groupBox2.Controls.Add(this.cbBeginCommit);
             this.groupBox2.Controls.Add(this.label_Commit2);
@@ -80,6 +82,14 @@
             this.groupBox2.TabIndex = 15;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Choose Commit";
+            // 
+            // tbSearchSourceSmaller
+            // 
+            this.tbSearchSourceSmaller.Location = new System.Drawing.Point(190, 28);
+            this.tbSearchSourceSmaller.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbSearchSourceSmaller.Name = "tbSearchSourceSmaller";
+            this.tbSearchSourceSmaller.Size = new System.Drawing.Size(123, 20);
+            this.tbSearchSourceSmaller.TabIndex = 20;
             // 
             // cbEndCommit
             // 
@@ -96,7 +106,7 @@
             this.cbBeginCommit.Location = new System.Drawing.Point(112, 28);
             this.cbBeginCommit.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cbBeginCommit.Name = "cbBeginCommit";
-            this.cbBeginCommit.Size = new System.Drawing.Size(201, 21);
+            this.cbBeginCommit.Size = new System.Drawing.Size(66, 21);
             this.cbBeginCommit.TabIndex = 14;
             // 
             // label_Commit2
@@ -138,6 +148,16 @@
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Setting";
+            // 
+            // cbCAAS
+            // 
+            this.cbCAAS.AutoSize = true;
+            this.cbCAAS.Location = new System.Drawing.Point(189, 147);
+            this.cbCAAS.Name = "cbCAAS";
+            this.cbCAAS.Size = new System.Drawing.Size(54, 17);
+            this.cbCAAS.TabIndex = 14;
+            this.cbCAAS.Text = "CAAS";
+            this.cbCAAS.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -273,7 +293,7 @@
             this.checkedListBox_Result.FormattingEnabled = true;
             this.checkedListBox_Result.Location = new System.Drawing.Point(6, 19);
             this.checkedListBox_Result.Name = "checkedListBox_Result";
-            this.checkedListBox_Result.Size = new System.Drawing.Size(744, 229);
+            this.checkedListBox_Result.Size = new System.Drawing.Size(744, 214);
             this.checkedListBox_Result.TabIndex = 14;
             // 
             // groupBox4
@@ -291,7 +311,7 @@
             this.checkListBox_Package.FormattingEnabled = true;
             this.checkListBox_Package.Location = new System.Drawing.Point(6, 19);
             this.checkListBox_Package.Name = "checkListBox_Package";
-            this.checkListBox_Package.Size = new System.Drawing.Size(744, 259);
+            this.checkListBox_Package.Size = new System.Drawing.Size(744, 244);
             this.checkListBox_Package.TabIndex = 14;
             // 
             // bt_OpenSavePath
@@ -325,21 +345,11 @@
             this.bt_copy_address.UseVisualStyleBackColor = true;
             this.bt_copy_address.Click += new System.EventHandler(this.bt_copy_address_Click);
             // 
-            // cbCAAS
-            // 
-            this.cbCAAS.AutoSize = true;
-            this.cbCAAS.Location = new System.Drawing.Point(189, 147);
-            this.cbCAAS.Name = "cbCAAS";
-            this.cbCAAS.Size = new System.Drawing.Size(54, 17);
-            this.cbCAAS.TabIndex = 14;
-            this.cbCAAS.Text = "CAAS";
-            this.cbCAAS.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1028, 609);
+            this.ClientSize = new System.Drawing.Size(1148, 609);
             this.Controls.Add(this.bt_copy_address);
             this.Controls.Add(this.btCleanSaveFolder);
             this.Controls.Add(this.bt_OpenSavePath);
@@ -394,6 +404,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button bt_copy_address;
         private System.Windows.Forms.CheckBox cbCAAS;
+        private System.Windows.Forms.TextBox tbSearchSourceSmaller;
     }
 }
 
